@@ -98,8 +98,6 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
-  console.log(JSON.stringify(postsResponse, null, 2));
-
   const posts = postsResponse.results.map(
     ({ uid, data, first_publication_date }) => ({
       uid,
@@ -113,8 +111,6 @@ export const getStaticProps: GetStaticProps = async () => {
       data,
     })
   );
-
-  console.log(JSON.stringify(posts, null, 2));
 
   return {
     props: {
