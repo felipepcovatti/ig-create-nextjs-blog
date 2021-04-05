@@ -4,4 +4,17 @@
   padding: 2rem;
 }
 
+.postMetaData {
+  display: flex;
+  span {
+    display: flex;
+    align-items: center;
+    color: var(--gray-400);
+    svg {
+      margin-right: 0.5rem;
+    }
+    & + span {
+      margin-left: 1.5rem;
+    }
+  }
 }

@@ -61,7 +61,7 @@ export default function Home({
                 <p>{post.data.subtitle}</p>
               </a>
             </Link>
-            <footer>
+            <footer className={commonStyles.postMetaData}>
               <span>
                 <FiCalendar />
                 <time>

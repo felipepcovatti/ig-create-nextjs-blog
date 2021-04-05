@@ -17,21 +17,6 @@
       margin-bottom: 1.25rem;
     }
   }
-
-  footer {
-    display: flex;
-    span {
-      display: flex;
-      align-items: center;
-      color: var(--gray-400);
-      svg {
-        margin-right: 0.5rem;
-      }
-      & + span {
-        margin-left: 1.5rem;
-      }
-    }
-  }
 }
 
 .loadMoreButton {
