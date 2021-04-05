@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { getPrismicClient } from '../services/prismic';
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
+import Header from '../components/Header';
 
 interface Post {
   uid?: string;
@@ -50,7 +51,7 @@ export default function Home({
       <Head>
         <title>Posts | Space Traveling</title>
       </Head>
-
+      <Header />
       <main className={`${commonStyles.content} ${styles.content}`}>
         {posts.map(post => (
           <div className={styles.post} key={post.uid}>
