@@ -2,7 +2,7 @@ import Link from 'next/link';
 import commonStyles from '../../styles/common.module.scss';
 import styles from './header.module.scss';
 
-export function Header(): JSX.Element {
+export default function Header(): JSX.Element {
   return (
     <header className={styles.header}>
       <div className={commonStyles.content}>
