@@ -63,7 +63,11 @@ export default function Home({
             <footer>
               <span>
                 <FiCalendar />
-                <time>{post.first_publication_date}</time>
+                <time>
+                  {format(new Date(post.first_publication_date), 'd MMM y', {
+                    locale: ptBR,
+                  })}
+                </time>
               </span>
               <span>
                 <FiUser />
@@ -100,13 +104,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const posts = postsResponse.results.map(
     ({ uid, data, first_publication_date }) => ({
       uid,
-      first_publication_date: format(
-        new Date(first_publication_date),
-        'd MMM y',
-        {
-          locale: ptBR,
-        }
-      ),
+      first_publication_date,
       data,
     })
   );
