@@ -128,8 +128,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     fetch: ['post.title', 'post.author', 'post.banner', 'post.content'],
   });
 
-  console.log(response);
-
   const { data, first_publication_date, last_publication_date, uid } = response;
 
   return {
