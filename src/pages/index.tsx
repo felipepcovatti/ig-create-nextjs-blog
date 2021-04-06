@@ -3,14 +3,13 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import Prismic from '@prismicio/client';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 import { FiCalendar, FiUser } from 'react-icons/fi';
 import { useState } from 'react';
 import { getPrismicClient } from '../services/prismic';
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
 import Header from '../components/Header';
+import { formatDate } from '../utils/formatDate';
 
 interface Post {
   uid?: string;
@@ -64,11 +63,7 @@ export default function Home({
             <footer className={commonStyles.postMetaData}>
               <span>
                 <FiCalendar />
-                <time>
-                  {format(new Date(post.first_publication_date), 'd MMM y', {
-                    locale: ptBR,
-                  })}
-                </time>
+                <time>{formatDate(post.first_publication_date)}</time>
               </span>
               <span>
                 <FiUser />

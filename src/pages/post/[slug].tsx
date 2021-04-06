@@ -4,17 +4,17 @@ import { useRouter } from 'next/router';
 import { RichText } from 'prismic-dom';
 import Prismic from '@prismicio/client';
 import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 import { getPrismicClient } from '../../services/prismic';
 
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
 import Header from '../../components/Header';
+import { formatDate } from '../../utils/formatDate';
 
 interface Post {
   uid: string;
   first_publication_date: string | null;
+  last_publication_date: string | null;
   data: {
     title: string;
     banner: {
@@ -59,11 +59,7 @@ export default function Post({ post }: PostProps): JSX.Element {
           <div className={commonStyles.postMetaData}>
             <span>
               <FiCalendar />
-              <time>
-                {format(new Date(post.first_publication_date), 'd MMM y', {
-                  locale: ptBR,
-                })}
-              </time>
+              <time>{formatDate(post.first_publication_date)}</time>
             </span>
             <span>
               <FiUser />
@@ -74,6 +70,12 @@ export default function Post({ post }: PostProps): JSX.Element {
               {estimatedReadingTime} min
             </span>
           </div>
+          {post.first_publication_date !== post.last_publication_date && (
+            <div className={styles.editDate}>
+              * editado em{' '}
+              {formatDate(post.last_publication_date, "d MMM y', às' H:mm")}
+            </div>
+          )}
           <article>
             {post.data.content.map(({ heading, body }) => {
               const contentKey =
@@ -126,7 +128,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     fetch: ['post.title', 'post.author', 'post.banner', 'post.content'],
   });
 
-  const { data, first_publication_date, uid } = response;
+  console.log(response);
+
+  const { data, first_publication_date, last_publication_date, uid } = response;
 
   return {
     props: {
@@ -134,6 +138,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         uid,
         data,
         first_publication_date,
+        last_publication_date,
       },
     },
   };
