@@ -11,6 +11,7 @@ import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
 import Header from '../../components/Header';
 import { formatDate } from '../../utils/formatDate';
+import Comments from '../../components/Comments';
 
 interface Post {
   uid: string;
@@ -122,6 +123,7 @@ export default function Post({
               </div>
             )}
           </footer>
+          <Comments />
         </main>
       </div>
       {preview && (
