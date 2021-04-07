@@ -14,7 +14,7 @@ import { formatDate } from '../../utils/formatDate';
 interface Post {
   uid: string;
   first_publication_date: string | null;
-  last_publication_date: string | null;
+  last_publication_date?: string | null;
   data: {
     title: string;
     banner: {
@@ -70,7 +70,8 @@ export default function Post({ post }: PostProps): JSX.Element {
               {estimatedReadingTime} min
             </span>
           </div>
-          {post.first_publication_date !== post.last_publication_date && (
+          {post.last_publication_date &&
+            post.last_publication_date !== post.first_publication_date && (
             <div className={styles.editDate}>
               * editado em{' '}
               {formatDate(post.last_publication_date, "d MMM y', às' H:mm")}
