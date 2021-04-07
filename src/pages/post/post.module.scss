@@ -16,6 +16,9 @@
 }
 
 .content {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+
   font-size: 1.125rem;
   line-height: 2rem;
 
@@ -49,6 +52,41 @@
 
     li {
       margin: 0.5rem 0;
+    }
+  }
+
+  > hr {
+    height: 1px;
+    margin: 3rem 0;
+    border: 0;
+
+    background: var(--gray-100);
+
+    opacity: 0.1;
+  }
+
+  footer {
+    display: flex;
+
+    span {
+      display: block;
+      margin-bottom: 0.25rem;
+
+      color: var(--white);
+
+      font-size: 1.5rem;
+    }
+
+    a {
+      color: var(--pink);
+
+      font-weight: 600;
+      font-size: 1.25rem;
+
+      transition: filter 0.2s;
+      &:hover {
+        filter: brightness(0.8)
+      }
     }
   }
 }
