@@ -169,23 +169,21 @@ export const getStaticProps: GetStaticProps = async ({
   });
 
   const previousPostReponse = await getPrismicClient().query(
-    Prismic.Predicates.dateBefore(
-      'document.first_publication_date',
-      new Date(post.first_publication_date)
-    ),
+    Prismic.Predicates.at('document.type', 'post'),
     {
       pageSize: 1,
+      after: post.id,
+      orderings: '[document.first_publication_date desc]',
       ref: previewData.ref ?? null,
     }
   );
 
   const nextPostReponse = await getPrismicClient().query(
-    Prismic.Predicates.dateAfter(
-      'document.first_publication_date',
-      new Date(post.first_publication_date)
-    ),
+    Prismic.Predicates.at('document.type', 'post'),
     {
       pageSize: 1,
+      after: post.id,
+      orderings: '[document.first_publication_date]',
       ref: previewData.ref ?? null,
     }
   );
