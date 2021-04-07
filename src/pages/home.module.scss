@@ -30,4 +30,9 @@
 
   font-size: 1.25rem;
   font-weight: 600;
+
+  transition: filter 0.2s;
+  &:hover {
+    filter: brightness(0.8)
+  }
 }
