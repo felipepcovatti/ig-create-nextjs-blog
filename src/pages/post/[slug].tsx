@@ -35,12 +35,14 @@ interface PostProps {
   post: Post;
   nextPost?: Post | null;
   previousPost?: Post | null;
+  preview?: boolean;
 }
 
 export default function Post({
   post,
   previousPost,
   nextPost,
+  preview,
 }: PostProps): JSX.Element {
   const router = useRouter();
 
@@ -79,11 +81,11 @@ export default function Post({
           </div>
           {post.last_publication_date &&
             post.last_publication_date !== post.first_publication_date && (
-            <div className={styles.editDate}>
-              * editado em{' '}
-              {formatDate(post.last_publication_date, "d MMM y', às' H:mm")}
-            </div>
-          )}
+              <div className={styles.editDate}>
+                * editado em{' '}
+                {formatDate(post.last_publication_date, "d MMM y', às' H:mm")}
+              </div>
+            )}
           <article>
             {post.data.content.map(({ heading, body }) => {
               const contentKey =
@@ -122,6 +124,13 @@ export default function Post({
           </footer>
         </main>
       </div>
+      {preview && (
+        <aside>
+          <Link href="/api/exit-preview">
+            <a className={commonStyles.exitPreviewLink}>Sair do modo Preview</a>
+          </Link>
+        </aside>
+      )}
     </>
   );
 }
@@ -147,11 +156,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+  previewData = {},
+}) => {
   const { slug } = params;
 
   const post = await getPrismicClient().getByUID('post', String(slug), {
     fetch: ['post.title', 'post.author', 'post.banner', 'post.content'],
+    ref: previewData.ref ?? null,
   });
 
   const previousPostReponse = await getPrismicClient().query(
@@ -161,6 +175,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     ),
     {
       pageSize: 1,
+      ref: previewData.ref ?? null,
     }
   );
 
@@ -171,6 +186,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     ),
     {
       pageSize: 1,
+      ref: previewData.ref ?? null,
     }
   );
 
@@ -179,6 +195,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       post,
       previousPost: previousPostReponse.results[0] ?? null,
       nextPost: nextPostReponse.results[0] ?? null,
+      preview,
     },
   };
 };
