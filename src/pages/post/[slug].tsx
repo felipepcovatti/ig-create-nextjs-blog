@@ -197,5 +197,6 @@ export const getStaticProps: GetStaticProps = async ({
       nextPost: nextPostReponse.results[0] ?? null,
       preview,
     },
+    revalidate: 60 * 60, // 1 hour
   };
 };
